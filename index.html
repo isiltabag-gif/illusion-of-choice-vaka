@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="data:,">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Illusion of Choice · Vaka Çalışması</title>
+<meta name="description" content="Richard Shotton'ın The Illusion of Choice kitabı için Işıl Tabağ'ın hazırladığı etkileşimli vaka çalışması.">
+<style>
+:root{--navy:#152c48;--navy2:#1d3a5c;--ink:#2b2f36;--muted:#5d6672;--line:#dde3eb;--paper:#eef1f5;--soft:#f5f7fa;--white:#fff;--accent:#b59154;--accentl:#d9bc86;--ok:#1f5e4b;--okbg:#eaf3ef;--bad:#8a3a2d;--badbg:#f9eeeb}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16.5px/1.62 Inter,"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Arial,sans-serif}
+.top{background:var(--navy);color:#fff;position:sticky;top:0;z-index:10;box-shadow:0 2px 12px #0b1a2c33}
+.top-in{max-width:900px;margin:auto;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand b{display:block;font-size:14.5px;letter-spacing:.06em}.brand small{color:var(--accentl);font-size:12px;letter-spacing:.08em}
+.top .where{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accentl);white-space:nowrap}
+.pwrap{background:var(--navy2);height:6px}.pbar{height:6px;width:0;background:var(--accent);transition:width .3s}
+.plabel{max-width:900px;margin:auto;padding:4px 20px 8px;font-size:12px;color:#c9d2de;display:flex;justify-content:space-between;gap:10px}
+main{max-width:900px;margin:auto;padding:26px 20px 40px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:clamp(22px,4.5vw,40px);box-shadow:0 8px 26px #152c4810}
+.cover{background:var(--navy);color:#fff;border-radius:16px;padding:clamp(26px,6vw,56px);position:relative;overflow:hidden}
+.cover:after{content:"";position:absolute;top:0;right:0;bottom:0;width:26%;background:var(--navy2)}
+.cover>*{position:relative;z-index:1;max-width:600px}
+.cover h1{font-size:clamp(32px,6.5vw,54px);line-height:1.08;margin:14px 0 10px;color:#fff}
+.cover .sub{color:#d6dfea;font-size:clamp(16px,2.4vw,19px);margin:0}
+.cover hr{border:0;border-top:1px solid #ffffff3a;margin:24px 0 16px}
+.cover .meta{color:#c6d2e0;font-size:14px;margin:0}
+.rule{width:44px;height:3px;background:var(--accent);margin-bottom:12px}
+.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 6px}
+.cover .eyebrow{color:var(--accentl)}
+h1{font-size:clamp(24px,4vw,30px);line-height:1.2;color:var(--navy);margin:0 0 14px}
+h2{font-size:20px;color:var(--navy);margin:24px 0 10px}
+h3{font-size:16.5px;color:var(--navy);margin:18px 0 8px}
+p{margin:0 0 12px}.muted{color:var(--muted)}
+.letter{margin-top:20px}.letter .sign{font-weight:700;color:var(--navy)}
+.startbox{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-top:18px;padding:20px 24px}
+.startbox p{margin:0}
+.situ{background:var(--soft);border-left:4px solid var(--accent);padding:14px 18px;border-radius:0 10px 10px 0;margin:14px 0 18px}
+ul.find{margin:0;padding:0;list-style:none;counter-reset:f}
+ul.find li{counter-increment:f;position:relative;padding:10px 12px 10px 46px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#fbfcfd}
+ul.find li:before{content:counter(f);position:absolute;left:12px;top:10px;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.kind{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);border:1px solid var(--line);border-radius:999px;padding:3px 10px;margin-bottom:10px;background:var(--soft)}
+.ctx{font-size:14px;color:var(--muted);margin:0 0 6px}
+.q{font-size:clamp(18px,2.6vw,21px);font-weight:700;color:var(--ink);line-height:1.4;margin:6px 0 16px;outline:none}
+.opts{display:grid;gap:10px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:13px 16px;border:1px solid #c9d3df;border-radius:10px;background:#fff;color:var(--ink);font:inherit;cursor:pointer;transition:border-color .15s,background .15s}
+.opt:hover:not(:disabled){border-color:var(--navy);background:var(--soft)}
+.opt .l{flex:0 0 26px;height:26px;border-radius:50%;border:1px solid #b9c4d2;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--navy)}
+.opt:disabled{cursor:default}
+.opt.right{background:var(--okbg);border-color:var(--ok);color:#16463a}.opt.right .l{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{background:var(--badbg);border-color:#c79a90;color:#6d3328;opacity:.85}.opt.wrong .l{border-color:var(--bad);color:var(--bad)}
+.fb{margin-top:16px;padding:14px 18px;border-radius:10px;border-left:4px solid}
+.fb.good{background:var(--okbg);border-color:var(--ok)}.fb.bad{background:var(--badbg);border-color:var(--bad)}
+.fb b.h{display:block;margin-bottom:4px}.fb.good b.h{color:var(--ok)}.fb.bad b.h{color:var(--bad)}
+.concept{display:inline-block;margin-top:8px;font-size:13px;font-weight:700;color:var(--navy);border-bottom:2px solid var(--accent)}
+.mine{font-size:13.5px;color:var(--muted);margin-top:10px}
+textarea,input{width:100%;font:inherit;border:1px solid #c9d2de;border-radius:10px;padding:11px 13px;color:var(--ink);background:#fff}
+textarea{min-height:160px;resize:vertical;line-height:1.55}
+textarea:focus,input:focus{outline:3px solid #b5915455;border-color:var(--navy)}
+label{display:block;font-weight:600;font-size:14.5px;margin:12px 0 5px;color:var(--navy)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+button{font:inherit}
+.btn{cursor:pointer;border:1px solid #c9d3df;border-radius:10px;background:#fff;color:var(--navy);padding:11px 18px;font-weight:600}
+.btn:hover:not(:disabled){border-color:var(--navy);background:var(--soft)}
+.btn.primary{background:var(--navy);border-color:var(--navy);color:#fff}.btn.primary:hover:not(:disabled){background:var(--navy2)}
+.btn.accent{background:var(--accent);border-color:var(--accent);color:#fff}.btn.accent:hover:not(:disabled){background:#9f7d44}
+.btn:disabled{opacity:.42;cursor:not-allowed}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.hint{font-size:13.5px;color:var(--muted);margin-top:8px;text-align:right}
+.score{font-size:40px;font-weight:800;color:var(--navy);line-height:1.1}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+.stat{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:#fbfcfd}
+.stat .n{font-size:24px;font-weight:800;color:var(--navy);display:block}.stat .d{font-size:13.5px;color:var(--muted)}
+.tbl{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 16px}
+.tbl th,.tbl td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+.tbl th{background:var(--soft);color:var(--navy)}
+.tbl .ok{color:var(--ok);font-weight:700}.tbl .no{color:var(--bad);font-weight:700}
+.tblwrap{overflow-x:auto}
+ul.rev{padding-left:20px}ul.rev li{margin-bottom:8px}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row>div{flex:1 1 220px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+#sendMsg{margin-top:12px;font-weight:600;min-height:22px}#sendMsg.ok{color:var(--ok)}#sendMsg.err{color:var(--bad)}
+.field-err{border-color:var(--bad)!important}
+.hidden{display:none!important}
+footer{max-width:900px;margin:auto;padding:16px 20px 30px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:600px){body{font-size:16px}main{padding:16px 12px 32px}.top-in{padding:10px 14px}.plabel{padding:4px 14px 8px}.brand small{display:none}.card{border-radius:12px}.cover:after{width:14%}.nav .btn{padding:11px 14px}.opt{padding:12px 13px}.score{font-size:34px}.tbl{font-size:13px}}
+@media print{.top,.nav,.actions,#sendBox,footer,.hint{display:none!important}body{background:#fff}.card{box-shadow:none;border:0}}
+</style>
+</head>
+<body>
+<header class="top">
+ <div class="top-in"><div class="brand"><b>THE ILLUSION OF CHOICE</b><small>Richard Shotton · Vaka Çalışması</small></div><span class="where" id="where">Başlangıç</span></div>
+ <div class="pwrap"><div class="pbar" id="pbar"></div></div>
+ <div class="plabel"><span id="plabel">Hazırlayan: Işıl Tabağ</span><span id="psolved"></span></div>
+</header>
+<main id="view" tabindex="-1"></main>
+<footer>Richard Shotton’ın <i>The Illusion of Choice</i> kitabındaki fikirlerden hazırlanmış özgün vaka çalışması. Moka ve FitLine öğretim amacıyla kurgulanmış şirketlerdir. Kitaptaki etkiler olası eğilimlerdir; her insanda ve her koşulda aynı sonucu vermez.</footer>
+<script>
+var CONCEPTS={
+"Kolaylaştırmak":"İnsanlar bir şeyi istese bile uzun form veya belirsiz adımlar yüzünden vazgeçebilir. Daha çok ikna etmeden önce yoldaki engelleri kaldır.",
+"Alışkanlık":"Yeni bir davranışı var olan bir rutine bağlamak ve tekrarını kolaylaştırmak, onun düzenli hale gelmesini destekler.",
+"Orta seçeneğin çekiciliği":"İnsanlar çoğu zaman en ucuz ya da en pahalı yerine ortadaki seçeneği dengeli ve güvenli bulur. Seçenekler birbirinin algısını etkiler.",
+"Somut anlatım":"Somut ifadeler zihinde görüntü oluşturur. 'Harika deneyim' yerine müşterinin hangi işinin, nasıl kolaylaştığını anlat.",
+"Zirve ve son":"Bir deneyim çoğunlukla en yoğun anı ve sonu üzerinden hatırlanır. Önce en kötü anı düzelt, sonra iyi bir kapanış tasarla.",
+"Deney yapmak":"Mantıklı görünen bir fikir işe yaramayabilir. Benzer gruplarda tek bir şeyi değiştir, aynı ölçütle karşılaştır.",
+"Adalet algısı":"İnsanlar bir teklifi yalnızca fiyatına değil, adil olup olmadığına göre de değerlendirir ve başkalarına yapılanla kıyaslar.",
+"Çerçeveleme":"Aynı bilgi farklı sözcüklerle anlatıldığında farklı hissettirebilir. Hangi yönün öne çıkarıldığı kararı etkiler.",
+"Seçim özgürlüğü":"Karar özgürlüğü tehdit edilen insanlar direnebilir (tepkisellik). Gerçek seçenekler sunmak daha yapıcıdır.",
+"Yüzdenin tabanı":"Bir yüzde, neyin yüzdesi olduğu bilinmeden anlam taşımaz. Farklı tabanlara uygulanan yüzdeler doğrudan karşılaştırılamaz.",
+"Paydayı unutma":"Görünen sayı tek başına yetmez; toplamı, yani paydayı da bilmek gerekir. Kişi başına, birim başına düşen değere bak.",
+"Mizahın gücü":"Mizah dikkat ve hatırlamayı destekleyebilir; ama bağlam yanlışsa ya da şaka ana mesajı gölgelerse ters tepebilir.",
+"Halo etkisi":"Tek bir olumlu özellik, diğer özelliklerin de olumlu değerlendirilmesine yol açabilir. 'İyi görünüyor' ile 'iyi çalışıyor' ayrı sorulardır."
+};
+var CASES=[
+{id:"c1",short:"Moka",title:"Moka kahve zincirinin mobil uygulaması",
+ situation:"Moka, şehirde birçok şubesi olan bir kahve zinciri. Mobil uygulaması 50.000 kez indirildi; ama 3 ay sonra uygulamadan düzenli sipariş veren müşteri sayısı çok az. Yönetim, bir danışman olarak senden öneri istiyor.",
+ findings:[
+  "Bir sipariş vermek 7 ekran sürüyor. İlk siparişte kart bilgisi ve 10 alanlık bir profil formu isteniyor.",
+  "Menüde yalnızca iki boy var: küçük ve büyük. Müşterilerin çoğu küçük boyu seçiyor.",
+  "Uygulamanın gönderdiği bildirim: “Harika kahve deneyimi seni bekliyor!”",
+  "Uygulamadan sipariş veren müşteri, kahvesini almak için şubede yine kasadaki kuyruğa giriyor.",
+  "Yönetim, kullanımı artırmak için %20 indirim kampanyası yapmayı düşünüyor."
+ ],
+ freePrompt:"Moka yönetimine 3-4 cümlelik kendi önerini yaz: Önce neyi değiştirirdin ve başarıyı nasıl ölçerdin?",
+ tasks:[
+ {id:"m1",concepts:["Kolaylaştırmak"],kind:"En iyi iş kararını seç",
+  q:"Yönetim %20 indirime hazırlanıyor. Bir danışman olarak indirimden önce hangi adımı önerirsin?",
+  o:[
+   {t:"İndirimi %30’a çıkarmak; daha büyük bir indirim, uygulamayı kullanmak için daha güçlü bir neden olur.",w:"Daha büyük indirim isteği artırabilir ama 7 ekran ve 10 alanlık form yerinde duruyor. Sorun istek eksikliği değil, yolun zorluğu olabilir."},
+   {t:"Sipariş adımlarını kısaltmak: İlk siparişte yalnızca gerekli bilgileri istemek, profil formunu sonraya bırakmak.",c:1},
+   {t:"Uygulamanın logosunu ve renklerini yenileyip uygulamayı daha modern ve güvenilir göstermek.",w:"Yeni bir görünüm ilk izlenimi güzelleştirebilir ama sipariş yine 7 ekran sürer. Müşterinin tam olarak nerede vazgeçtiğine bak."},
+   {t:"Reklam bütçesini artırıp uygulamanın daha çok kişi tarafından indirilmesini sağlamak.",w:"Uygulama zaten 50.000 kez indirilmiş. Sorun indirmek değil, sonrasında sipariş vermek. Yeni gelenler de aynı engellere takılır."}],
+  fb:"İnsanlar her zaman isteksiz oldukları için değil, yol zor olduğu için vazgeçebilir. 7 ekran ve uzun bir form, kahve isteyen birini bile yarı yolda bırakır. İndirim müşteriyi aynı zor yola iter; önce engeli kaldırmak gerekir."},
+ {id:"m2",concepts:["Alışkanlık"],kind:"En iyi iş kararını seç",
+  q:"Moka, uygulamanın ara sıra açılan bir uygulama olmaktan çıkıp her gün kullanılmasını istiyor. Hangi fikir uygulamayı sabah rutinine en iyi bağlar?",
+  o:[
+   {t:"Her ayın ilk günü yalnızca uygulamada geçerli büyük bir kampanya duyurmak.",w:"Ayda bir kampanya bir kez ilgi çekebilir ama her gün tekrarlanan bir davranış oluşturmaz. Alışkanlık, sık tekrarlanan bir durumla bağ kurar."},
+   {t:"Uygulamaya kahve çekirdekleri ve kahvenin tarihi hakkında yazılar içeren bir bölüm eklemek.",w:"İlginç bir içerik olabilir ama siparişi kolaylaştırmaz ve uygulamayı günlük bir ana bağlamaz."},
+   {t:"Müşterilere günün farklı ve rastgele saatlerinde sürpriz bildirimler göndermek.",w:"Rastgele saatler belirli bir işaret oluşturmaz. Alışkanlık için davranışın her gün aynı durumla eşleşmesi gerekir."},
+   {t:"Sabah işe ya da okula giderken önceki siparişi tek dokunuşla tekrarlayan bir “Her zamankinden” düğmesi eklemek.",c:1}],
+  fb:"Yeni bir davranışı zaten var olan bir rutine (sabah yolculuğu) bağlamak ve tekrarını kolaylaştırmak, düzenli hale gelmesini destekler. Aynı saat, aynı yol, aynı sipariş: Her sabah yeniden karar vermeye gerek kalmaz."},
+ {id:"m3",concepts:["Orta seçeneğin çekiciliği"],kind:"Daha iyi fiyat listesini seç",
+  q:"Şu an Küçük 60 TL, Büyük 90 TL ve çoğu kişi küçüğü seçiyor. Moka, müşterilerin bir üst boyu da değerlendirmesini istiyor. Hangi liste bunu en çok destekleyebilir?",
+  o:[
+   {t:"Küçük 60 TL · Büyük 90 TL (Yalnızca büyük boyu menünün en üstüne yazmak.)",w:"Sırayı değiştirmek seçenekleri değiştirmez. İki seçenekte ortada duran bir boy yoktur; küçük yine en güvenli tercih gibi görünür."},
+   {t:"Küçük 60 TL · Orta 75 TL · Büyük 90 TL",c:1},
+   {t:"Tek boy 75 TL (Seçim yapmayı tamamen kaldırmak.)",w:"Tek boy, küçük isteyenleri kaybettirebilir ve karşılaştırma imkânını ortadan kaldırır. Seçeneklerin birbirini nasıl etkilediğini düşün."},
+   {t:"Küçük 50 TL · Büyük 90 TL (Küçüğü ucuzlatıp daha çekici yapmak.)",w:"Küçüğü ucuzlatmak iki boy arasındaki farkı büyütür; müşteriler küçük boya daha da yönelebilir."}],
+  fb:"İnsanlar çoğu zaman uçlardaki seçenekler yerine ortadakini dengeli bulur. Üç boylu listede 75 TL’lik orta boy, bazı müşteriler için makul bir yükseltme gibi görünebilir. Bu bir eğilimdir, garanti değildir; sonucu ölçmek gerekir."},
+ {id:"m4",concepts:["Somut anlatım"],kind:"Daha iyi mesajı seç",
+  q:"Bildirimdeki “Harika kahve deneyimi seni bekliyor!” cümlesini yeniden yazıyorsun. Hangisi daha etkili olabilir?",
+  o:[
+   {t:"“Eşsiz lezzet deneyimini şimdi keşfet!”",w:"“Eşsiz lezzet deneyimi” de soyut kalıyor. Müşteri ne alacağını, ne zaman ve nasıl alacağını gözünde canlandıramıyor."},
+   {t:"“Moka: Kahvenin en kaliteli hali, en yenilikçi uygulamada.”",w:"“En kaliteli” ve “en yenilikçi” iddialı ama genel ifadeler. Müşterinin hangi işini kolaylaştırdığını söylemiyor."},
+   {t:"“Okul yolunda latten hazır: 2 dokunuşla sipariş ver, şubeye vardığında seni beklesin.”",c:1},
+   {t:"“Kaçırma!!! Muhteşem fırsatlar seni bekliyor!!!”",w:"Ünlemler ve belirsiz “muhteşem fırsatlar” dikkat çekmeye çalışır ama somut bir fayda anlatmaz; güvenilmez de görünebilir."}],
+  fb:"“Harika deneyim” gibi soyut ifadeler zihinde bir görüntü oluşturmaz. Hangi ürün, kaç dokunuş, nerede ve ne zaman: Müşteri kendi sabahını gözünde canlandırabilir."},
+ {id:"m5",concepts:["Zirve ve son"],kind:"En iyi iş kararını seç",
+  q:"Uygulamadan sipariş veren müşteri, şubede yine kasa kuyruğuna giriyor. Deneyimin sonunu iyileştirmek için ne önerirsin?",
+  o:[
+   {t:"Kasanın yanına ekranlar koyup kuyrukta bekleyenlere yeni ürünlerin reklamlarını göstermek.",w:"Ekranlar bekleme süresini kısaltmaz; deneyimin sonu yine kuyruk olarak kalır."},
+   {t:"Kuyruk düzenini değiştirmeden, uygulama siparişlerine bekledikleri için ücretsiz bir kurabiye eklemek.",w:"Küçük bir ikram güzel bir jest ama en kötü an olan kuyruk olduğu gibi duruyor. Önce en kötü anı düzeltmek gerekir."},
+   {t:"Kuyruksuz bir teslim rafı kurmak; kahve hazır olunca bildirim göndermek ve bardağa müşterinin adıyla kısa bir teşekkür yazmak.",c:1},
+   {t:"Sipariş ekranlarına ürünlerin daha büyük ve daha iştah açıcı fotoğraflarını eklemek.",w:"Sorun siparişin görünümünde değil, teslim anında. Deneyimin hangi anının akılda kaldığını düşün."}],
+  fb:"Bir deneyim çoğunlukla en yoğun anı ve sonu üzerinden hatırlanır. Burada son an, aynı zamanda en kötü an: Uygulamanın amacı kuyruktan kurtarmakken müşteri yine kuyrukta. Önce bu anı düzeltmek, sonra küçük ve güzel bir kapanış eklemek gerekir."},
+ {id:"m6",concepts:["Deney yapmak"],kind:"En iyi test planını seç",
+  q:"Yönetim yeni sipariş akışını hemen tüm şubelerde uygulamak istiyor. Sen önce bir test öneriyorsun. Hangi plan en güvenilir sonucu verir?",
+  o:[
+   {t:"Benzer şubeleri iki gruba ayırmak; bir grupta yalnızca yeni sipariş akışını denemek, diğerinde eskisini sürdürmek ve aynı dönemde tekrar sipariş oranını karşılaştırmak.",c:1},
+   {t:"Tek bir şubede yeni akışı başlatmak; aynı ay içinde indirimi, yeni menüyü ve yeni bildirimi de eklemek. Sipariş artarsa hepsini yaymak.",w:"Aynı anda dört şey değişirse sipariş artsa bile hangisinin işe yaradığını bilemezsin. Tek seferde tek değişken."},
+   {t:"Yeni akışı yalnızca en kalabalık şubede denemek ve sonuçları o şubenin geçen yılın aynı ayıyla karşılaştırmak.",w:"En kalabalık şube diğerlerine benzemeyebilir; geçen yıldan bu yana da pek çok şey değişmiştir. Karşılaştırılan gruplar benzer olmalı ve aynı dönemde ölçülmeli."},
+   {t:"Şube çalışanlarına hangi akışın daha iyi olduğunu sormak ve çoğunluğun tercih ettiğini tüm şubelerde uygulamak.",w:"Çalışanların görüşü değerli ama müşterinin gerçek davranışını ölçmez. Tahmin değil, ölçüm gerekir."}],
+  fb:"Mantıklı görünen bir fikir her zaman işe yaramaz. Benzer gruplar, tek değişken ve aynı ölçüt (tekrar sipariş oranı) sayesinde farkın yeni akıştan kaynaklanıp kaynaklanmadığını daha iyi görürsün. Küçük bir test kesin kanıt değildir ama tahminden çok daha güçlüdür."}
+ ]},
+{id:"c2",short:"FitLine",title:"FitLine spor salonunun zammı",
+ situation:"FitLine bir spor salonu zinciri. Aylık üyelik ücretini 800 TL’den 1.000 TL’ye çıkardı ve üyelere tek satırlık bir e-posta gönderdi: “Önümüzdeki aydan itibaren üyelik ücretiniz otomatik olarak 1.000 TL olacaktır.” Sonraki ay iptaller iki katına çıktı; sosyal medyada “haksızlık” yorumları arttı.",
+ findings:[
+  "Aynı dönemde yeni üyelere “ilk ay ücretsiz” kampanyası yapılıyor. Yıllardır üye olanlar kızgın.",
+  "E-postada yalnızca iki yol var: zammı kabul etmek ya da üyeliği iptal etmek.",
+  "Rakip salon “%25 daha fazla ekipman” diye reklam veriyor.",
+  "Pazarlama ekibi, krizi unutturmak için komik bir video çekmeyi öneriyor.",
+  "Yönetim, salonun giriş alanını parlak ve pahalı bir tasarımla yenilemeyi düşünüyor."
+ ],
+ freePrompt:"FitLine için eski üyelere göndereceğin kısa mesajı ya da 3 adımlık planını yaz.",
+ tasks:[
+ {id:"f1",concepts:["Adalet algısı"],kind:"En iyi iş kararını seç",
+  q:"Eski üyelerin öfkesini en iyi açıklayan ve buna uygun bir çözüm sunan seçenek hangisi?",
+  o:[
+   {t:"Üyeler 200 TL’lik farkı ödeyemediği için kızgın; tek çözüm zammı tamamen geri almak.",w:"Para önemli ama tek neden değil: Yorumlarda “pahalı” değil, “haksızlık” deniyor. Zammın gerçek bir maliyet nedeni de olabilir; tamamen geri almak tek yol değildir."},
+   {t:"Üyeler kendini yeni üyelerle kıyaslayıp haksızlık hissediyor; zammın nedenini açıklamak ve eski üyelere birkaç ay eski fiyattan devam etme hakkı tanımak.",c:1},
+   {t:"Üyeler yalnızca değişime direnç gösteriyor; birkaç ay içinde yeni fiyata alışırlar, şimdilik bir şey yapmaya gerek yok.",w:"İptaller iki katına çıkmışken beklemek riskli. Haksızlık hissi kendiliğinden geçmeyebilir."},
+   {t:"Yeni üye kampanyasını daha çok duyurmak; salon kalabalıklaşıp canlandıkça eski üyeler de memnun olur.",w:"Yeni üyelere verilen ayrıcalığı daha görünür yapmak, eski üyelerin karşılaştırmasını daha da keskinleştirir."}],
+  fb:"İnsanlar bir teklifi yalnızca fiyatına göre değil, adil olup olmadığına göre de değerlendirir ve başkalarına yapılanla kıyaslar. Yıllardır ödeyen üyeye zam, yeni gelene bedava ay: Bu kıyas haksızlık hissi yaratır. Gerekçeyi açıklamak ve sadakati tanımak bu algıyı onarabilir."},
+ {id:"f2",concepts:["Çerçeveleme","Seçim özgürlüğü"],kind:"Daha iyi e-postayı seç",
+  q:"Zam e-postasını yeniden yazıyorsun. Hangisi daha iyi?",
+  o:[
+   {t:"“Sayın üyemiz, artan maliyetler nedeniyle ücretiniz 1.000 TL’ye yükseltilmiştir. Yeni ücreti kabul etmeyen üyelerimizin üyeliği iptal edilecektir.”",w:"Bir gerekçe var ama “kabul etmeyenin üyeliği iptal edilecek” bir tehdit gibi okunuyor. Özgürlüğü kısıtlanan insanlar direnç gösterebilir."},
+   {t:"“Müjde! FitLine ailesi büyüyor! Yeni dönemde sana daha iyi hizmet verebilmek için ücretlerimizi güncelledik. Ayrıntılar için şubemize uğra.”",w:"“Müjde” çerçevesi zammı gizlemeye çalışıyor; üyeler bunu fark edince güven daha da azalır. Üstelik hiçbir seçenek sunulmuyor."},
+   {t:"“Merhaba, önümüzdeki aydan itibaren aylık ücret 1.000 TL olacak. Bu fiyat hâlâ bölgedeki birçok salondan uygun; bu yüzden üyeliğini sürdürmen senin için en doğru karar olur ve sürdürmen gerekir.”",w:"Karşılaştırma bilgisi işe yarayabilir ama “sürdürmen gerekir” baskı kuruyor ve gerçek bir seçenek sunmuyor."},
+   {t:"“Merhaba, kira ve enerji giderlerimiz arttığı için aylık ücret 1.000 TL olacak. Sana uyan yolu seçebilirsin: yıllık ödemeyle aylık 850 TL’ye denk gelen fiyatla devam etmek, hafta içi gündüz paketiyle 800 TL’de kalmak ya da üyeliğini 2 aya kadar ücretsiz dondurmak.”",c:1}],
+  fb:"“Otomatik olarak” ve “kabul et ya da iptal et” ifadeleri kontrolün elinden alındığı hissini verir; bu da tepkisellik yaratabilir. Gerekçeyi açıkça anlatmak ve gerçek seçenekler sunmak, üyeye kararı kendisinin verdiğini hissettirir. Yıllık ödeme, gündüz paketi ve dondurma, aynı zammı daha adil bir çerçevede sunar."},
+ {id:"f3",concepts:["Yüzdenin tabanı","Paydayı unutma"],kind:"Kusuru bul",
+  q:"Rakip salon “%25 daha fazla ekipman” diyor. Bu iddiayı değerlendirirken soracağın en önemli soru hangisi?",
+  o:[
+   {t:"Neye göre %25 daha fazla? Hangi salonla, hangi ekipmanlarla karşılaştırılıyor ve üye başına kaç ekipman düşüyor?",c:1},
+   {t:"%25, üyelerin salonda gerçekten fark edeceği ve salon değiştirecek kadar büyük bir fark mı?",w:"Büyüklüğü tartışmadan önce neyle karşılaştırıldığını bilmek gerekir. Taban küçükse %25 çok küçük bir fark olabilir."},
+   {t:"Rakibin reklamı bizimkinden daha dikkat çekici ve profesyonel mi görünüyor?",w:"Reklamın görünümü iddianın ne anlama geldiğini ya da doğru olup olmadığını göstermez."},
+   {t:"Biz de “%30 daha fazla ekipman” diye bir reklam versek üyeleri geri kazanır mıyız?",w:"Bu, ilk iddiayı anlamadan verilen bir tepki olur ve aynı belirsizliği taşır. Önce sayıların tabanını sor."}],
+  fb:"Bir yüzde, neyin yüzdesi olduğu bilinmeden anlam taşımaz: 20 makineye karşı 25 makine de “%25 fazla”dır. Rakip salonun üye sayısı iki katıysa, üye başına düşen ekipman daha az bile olabilir. Taban ve payda sorulmadan iddia değerlendirilemez."},
+ {id:"f4",concepts:["Mizahın gücü"],kind:"Riski bul",
+  q:"Pazarlama ekibi krizi unutturmak için komik bir video öneriyor. Bu fikrin en büyük riski nedir?",
+  o:[
+   {t:"Komik videolar hiçbir koşulda işe yaramaz; ciddi bir marka mizahı hiç kullanmamalıdır.",w:"Bu fazla kesin. Mizah doğru koşullarda dikkat ve hatırlamayı destekleyebilir. Sorun mizahın kendisi değil, zamanı ve bağlamı."},
+   {t:"Video yeterince komik olmazsa izlenmez; bu yüzden tanınmış bir komedyenle çalışmak gerekir.",w:"Daha komik olmak asıl riski azaltmaz. Kızgın üyelere şaka yapmanın nasıl algılanacağını düşün."},
+   {t:"Üyeler haksızlığa uğradığını hissederken yapılan şaka, sorunu ciddiye almamak gibi algılanabilir; espri hatırlanırken asıl mesaj kaybolabilir.",c:1},
+   {t:"Video çekmek pahalıdır; o bütçe salonun yeni giriş alanına harcanmalıdır.",w:"Maliyet önemli bir soru ama asıl risk, mizahın bu kriz anında nasıl algılanacağı."}],
+  fb:"Mizah dikkat ve hatırlamayı destekleyebilir ama bağlam önemlidir. Kriz anında kızgın üyelere şaka yapmak “bizi dinlemiyorlar” mesajı verebilir. Şaka ana mesajı gölgelerse insanlar espriyi hatırlar, sorunun nasıl çözüldüğünü değil. Önce sorunu çöz, mizahı sonra düşün."},
+ {id:"f5",concepts:["Halo etkisi"],kind:"En doğru değerlendirmeyi seç",
+  q:"Yönetim giriş alanını parlak ve pahalı bir tasarımla yenilemeyi düşünüyor. Bu karar hakkında hangisi en doğru değerlendirmedir?",
+  o:[
+   {t:"Giriş güzelleşirse üyeler ekipmanların ve eğitmenlerin de daha iyi olduğunu düşünür; diğer sorunlarla uğraşmaya gerek kalmaz.",w:"Bu, etkinin abartılması. Algı bir eğilimdir; üye her gün makineleri, kalabalığı ve eğitmenleri kendisi yaşar."},
+   {t:"Giriş alanının algıya hiçbir etkisi yoktur; üyeler yalnızca ekipmanlara ve fiyata bakar.",w:"Bu da fazla kesin. İlk izlenim, diğer özelliklerin nasıl değerlendirildiğini etkileyebilir."},
+   {t:"Parlak bir giriş, zammın neden yapıldığını kendiliğinden açıklar; üyelere ayrıca bir açıklama yapmaya gerek kalmaz.",w:"Görünüş adalet sorusunu çözmez. Eski üyelerin haksızlık hissi giriş tasarımıyla değil, açık gerekçe ve adil tekliflerle ele alınır."},
+   {t:"Etkileyici bir giriş, salonun geri kalanının da olumlu algılanmasına yardımcı olabilir; ama bozuk makine veya kalabalık gibi gerçek sorunları ortadan kaldırmaz.",c:1}],
+  fb:"Tek bir olumlu özellik, diğer özelliklerin de olumlu değerlendirilmesine yol açabilir. Parlak bir giriş salonu daha kaliteli gösterebilir ama “iyi görünüyor” ile “iyi çalışıyor” ayrı sorulardır. Üye antrenman sırasında gerçek hizmeti yaşar; güzel görünüm kötü bir hizmeti telafi etmez."}
+ ]}
+];
+
+</script>
+<script>
+(function(){
+"use strict";
+var KEY="ioc_vaka_isil_tabag_v1";
+var FORM_URL="https://formsubmit.co/ajax/isiltabag@gmail.com";
+var L=["A","B","C","D"];
+var STEPS=[],TASKS={},ALLT=[];
+CASES.forEach(function(c,ci){
+ STEPS.push({type:"scen",c:c});
+ c.tasks.forEach(function(t,ti){t.caseIdx=ci;t.n=ALLT.length+1;t.local=ti+1;TASKS[t.id]=t;ALLT.push(t);STEPS.push({type:"task",c:c,t:t});});
+ STEPS.push({type:"free",c:c});
+});
+var TOTAL=STEPS.length;
+function blank(){return {v:1,step:-1,a:{},free:{c1:"",c2:"",},name:"",email:"",started:null,updated:null};}
+function load(){try{var o=JSON.parse(localStorage.getItem(KEY)||"null");if(!o||o.v!==1)return blank();var b=blank();for(var k in b)if(!(k in o))o[k]=b[k];if(typeof o.step!=="number"||o.step<-1||o.step>TOTAL)o.step=-1;return o;}catch(e){return blank();}}
+var S=load();var ONCOVER=true;
+function save(){S.updated=new Date().toISOString();try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function cIdx(t){for(var i=0;i<t.o.length;i++)if(t.o[i].c)return i;return -1;}
+function rec(t){return S.a[t.id];}
+function solvedCount(){return ALLT.filter(function(t){var r=rec(t);return r&&r.solved;}).length;}
+function hasProgress(){return S.step>=0||Object.keys(S.a).length>0;}
+function nowTR(){try{return new Date().toLocaleString("tr-TR",{timeZone:"Europe/Istanbul",year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit"})+" (İstanbul saati)";}catch(e){return new Date().toString();}}
+function header(){
+ var st=ONCOVER?-1:S.step,lab,where;
+ if(st<0){lab="Hazırlayan: Işıl Tabağ";where="Başlangıç";$("pbar").style.width="0%";}
+ else if(st>=TOTAL){lab="Rapor";where="Sonuçlar";$("pbar").style.width="100%";}
+ else{var s=STEPS[st];lab="Kart "+(st+1)+" / "+TOTAL;where="Vaka "+(CASES.indexOf(s.c)+1)+" · "+s.c.short;$("pbar").style.width=((st+1)/TOTAL*100)+"%";}
+ $("plabel").textContent=lab;$("where").textContent=where;
+ $("psolved").textContent=(st>=0||hasProgress())?solvedCount()+" / "+ALLT.length+" görev çözüldü":"";
+}
+function go(i){ONCOVER=false;S.step=i;if(i>=0&&!S.started)S.started=new Date().toISOString();save();render();window.scrollTo(0,0);var f=document.querySelector("[data-focus]");if(f)try{f.focus({preventScroll:true});}catch(e){}}
+function navHTML(canNext,nextLabel){
+ return '<div class="nav"><button class="btn" id="btnPrev" type="button">← Önceki</button><button class="btn primary" id="btnNext" type="button"'+(canNext?'':' disabled')+'>'+(nextLabel||'Sonraki →')+'</button></div>'+(canNext?'':'<p class="hint" id="gateHint">Sonraki karta geçmek için doğru cevabı bul.</p>');
+}
+function bindNav(){
+ $("btnPrev").onclick=function(){go(S.step-1);};
+ $("btnNext").onclick=function(){if(!$("btnNext").disabled)go(S.step+1);};
+}
+function render(){
+ header();var v=$("view"),st=S.step;
+ if(ONCOVER||st<0)return renderCover(v);
+ if(st>=TOTAL)return renderEnd(v);
+ var s=STEPS[st];
+ if(s.type==="scen")renderScen(v,s);else if(s.type==="task")renderTask(v,s);else renderFree(v,s);
+}
+function renderCover(v){
+ var resume=hasProgress();
+ v.innerHTML='<section class="cover"><div class="rule"></div><p class="eyebrow"><span lang="en">Richard Shotton</span> · Vaka çalışması</p><h1>The Illusion<br>of Choice</h1><p class="sub">Kitapta öğrendiklerinle iki gerçekçi iş problemini çöz.</p><hr><p class="meta">2 vaka · '+ALLT.length+' görev · Açıklamalı geri bildirim · Sonunda rapor</p><p class="meta" style="margin-top:14px"><b style="color:#fff">Işıl Tabağ</b></p></section>'+
+ '<section class="card letter"><div class="rule"></div><h2 style="margin-top:0">Başlamadan önce</h2>'+
+ '<p>Sevgili öğrencim,</p>'+
+ '<p>The Illusion of Choice kitabında insanların seçimlerini nelerin etkilediğini birlikte keşfettin: alışkanlıklar, kullanılan kelimeler, seçeneklerin nasıl sunulduğu, adalet duygusu ve bir deneyimin nasıl bittiği. Şimdi bu fikirleri kullanma zamanı.</p>'+
+ '<p>Bu çalışmada bir danışman gibi düşünmeni istiyorum. Önünde iki şirket var: Bir kahve zinciri ve bir spor salonu. İkisinin de gerçek hayatta sık karşılaşılan sorunları var. Önce durumu ve bulguları dikkatle oku, sonra her görevde en iyi kararı seç.</p>'+
+ '<p>Yanlış bir seçim yaparsan üzülme; nedenini açıklayacağım ve tekrar deneyebileceksin. İyi danışmanlar da ilk tahminlerini sorgular. İstersen her vakanın sonunda kendi çözümünü de yazabilirsin.</p>'+
+ '<p>Sonunda bir rapor göreceksin. Sonuçlarını indirip saklayabilir ve bana gönderebilirsin.</p>'+
+ '<p>Sevgilerimle,</p><p class="sign">Işıl Tabağ</p></section>'+
+ '<section class="card startbox" id="startCard">'+(resume?'<p class="muted" id="resumeInfo">Kayıtlı ilerlemen var: '+(S.step>=TOTAL?'Rapor ekranı':'Kart '+(Math.max(S.step,0)+1)+' / '+TOTAL)+' · '+solvedCount()+' / '+ALLT.length+' görev çözüldü.</p><div class="actions" style="margin:0"><button class="btn" id="btnRestart" type="button">Baştan başla</button><button class="btn primary" id="btnResume" type="button" data-focus>Kaldığın yerden devam et →</button></div>':'<p class="muted">Kendi hızında ilerle; ilerlemen bu cihazda otomatik kaydedilir.</p><button class="btn primary" id="btnStart" type="button" data-focus>Vakaya başla →</button>')+'</section>';
+ if(resume){$("btnResume").onclick=function(){go(Math.max(S.step,0));};$("btnRestart").onclick=function(){if(confirm("Tüm cevapların silinip baştan başlanacak. Emin misin?")){var n=S.name,e=S.email;S=blank();S.name=n;S.email=e;go(0);}};}
+ else $("btnStart").onclick=function(){go(0);};
+}
+function renderScen(v,s){
+ var ci=CASES.indexOf(s.c);
+ v.innerHTML='<article class="card"><p class="eyebrow">Vaka '+(ci+1)+' · Durum</p><h1 data-focus tabindex="-1">'+esc(s.c.title)+'</h1><div class="situ">'+esc(s.c.situation)+'</div><h2>Bulgular</h2><ul class="find">'+s.c.findings.map(function(f){return '<li>'+esc(f)+'</li>';}).join("")+'</ul><p class="muted" style="margin-top:14px">Bu vakada '+s.c.tasks.length+' görev var. Bulgulara görevler sırasında bu karttan geri dönerek bakabilirsin.</p>'+navHTML(true)+'</article>';
+ bindNav();
+}
+function taskFb(t,r,last){
+ if(!r||last==null)return "";
+ var ci=cIdx(t);
+ if(last===ci){
+  var note=r.att.length===1?"İlk denemede doğru buldun.":"İlk cevabın farklıydı; doğru cevabı "+r.att.length+". denemede buldun.";
+  return '<div class="fb good" id="fb" role="status"><b class="h">Doğru.</b>'+esc(t.fb)+'<br><span class="concept">Kitaptaki kavram: '+esc(t.concepts.join(" · "))+'</span><p class="mine">'+note+'</p></div>';
+ }
+ return '<div class="fb bad" id="fb" role="status"><b class="h">Bu en iyi seçenek değil. Tekrar dene.</b>'+esc(t.o[last].w)+'<br><span class="concept">İpucu: '+esc(t.concepts.join(" · "))+'</span></div>';
+}
+function renderTask(v,s){
+ var t=s.t,r=rec(t),ci=cIdx(t);
+ var last=r&&r.att.length?r.att[r.att.length-1]:null;
+ var opts=t.o.map(function(o,i){
+  var cls="opt",dis=false;
+  if(r){if(r.att.indexOf(i)>=0&&i!==ci){cls+=" wrong";dis=true;}if(r.solved){dis=true;if(i===ci)cls+=" right";}}
+  return '<button type="button" class="'+cls+'" data-i="'+i+'"'+(dis?' disabled':'')+'><span class="l">'+L[i]+'</span><span>'+esc(o.t)+'</span></button>';
+ }).join("");
+ v.innerHTML='<article class="card"><p class="eyebrow">Vaka '+(t.caseIdx+1)+' · Görev '+t.local+' / '+s.c.tasks.length+'</p><span class="kind">'+esc(t.kind)+'</span><p class="ctx">'+esc(s.c.title)+'</p><p class="q" data-focus tabindex="-1">'+esc(t.q)+'</p><div class="opts" id="opts">'+opts+'</div><div id="fbwrap">'+taskFb(t,r,last)+'</div>'+navHTML(!!(r&&r.solved),S.step===TOTAL-1?'Rapora geç →':null)+'</article>';
+ Array.prototype.forEach.call(document.querySelectorAll("#opts .opt"),function(b){b.onclick=function(){answer(t,+b.getAttribute("data-i"));};});
+ bindNav();
+}
+function answer(t,i){
+ var r=S.a[t.id];
+ if(r&&r.solved)return;
+ if(!r){r=S.a[t.id]={first:i,firstOk:i===cIdx(t),att:[],solved:false,firstAt:new Date().toISOString()};}
+ if(r.att.indexOf(i)>=0)return;
+ r.att.push(i);
+ if(i===cIdx(t)){r.solved=true;r.solvedAt=new Date().toISOString();}
+ save();render();
+ var fb=$("fb");if(fb&&fb.scrollIntoView){try{fb.scrollIntoView({block:"nearest",behavior:"smooth"});}catch(e){}}
+}
+function renderFree(v,s){
+ var ci=CASES.indexOf(s.c),k=s.c.id;
+ v.innerHTML='<article class="card"><p class="eyebrow">Vaka '+(ci+1)+' · Kendi çözümün</p><h1 data-focus tabindex="-1">Kendi çözümün <span class="muted" style="font-size:16px;font-weight:400">(isteğe bağlı)</span></h1><p>'+esc(s.c.freePrompt)+'</p><label for="freeText">Önerin</label><textarea id="freeText" maxlength="3000" placeholder="İstersen buraya yaz. Boş bırakıp devam edebilirsin.">'+esc(S.free[k]||"")+'</textarea><p class="muted" style="font-size:13.5px;margin-top:6px">Yazdıkların otomatik kaydedilir ve rapora eklenir.</p>'+navHTML(true,S.step===TOTAL-1?'Rapora geç →':null)+'</article>';
+ $("freeText").addEventListener("input",function(){S.free[k]=this.value;save();});
+ bindNav();
+}
+function report(){
+ var rows=ALLT.map(function(t){var r=rec(t)||{att:[]};var ci=cIdx(t);return {t:t,r:r,firstOk:!!r.firstOk,firstText:r.att.length?L[r.first]+") "+t.o[r.first].t:"Cevaplanmadı",count:r.att.length,all:r.att.map(function(i){return L[i]+") "+t.o[i].t+(i===ci?" (doğru)":" (yanlış)");}),correct:L[ci]+") "+t.o[ci].t};});
+ var first=rows.filter(function(x){return x.firstOk;}).length;
+ var perCase=CASES.map(function(c){var rr=rows.filter(function(x){return x.t.caseIdx===CASES.indexOf(c);});return {c:c,first:rr.filter(function(x){return x.firstOk;}).length,total:rr.length,attempts:rr.reduce(function(a,x){return a+x.count;},0)};});
+ var revisit=[];rows.forEach(function(x){if(!x.firstOk)x.t.concepts.forEach(function(k){if(revisit.indexOf(k)<0)revisit.push(k);});});
+ var used=[];ALLT.forEach(function(t){t.concepts.forEach(function(k){if(used.indexOf(k)<0)used.push(k);});});
+ return {rows:rows,first:first,total:rows.length,perCase:perCase,revisit:revisit,used:used,attempts:rows.reduce(function(a,x){return a+x.count;},0)};
+}
+function renderEnd(v){
+ var R=report();
+ var html='<article class="card"><p class="eyebrow">Danışmanlık raporun</p><h1 data-focus tabindex="-1">Vaka çalışmasını tamamladın</h1><p>İki şirketin sorunlarını kitaptaki fikirlerle çözdün. Aşağıda ilk denemelerine göre hazırlanmış raporunu görebilirsin.</p>'+
+ '<div class="stats"><div class="stat"><span class="n" id="scoreNum">'+R.first+' / '+R.total+'</span><span class="d">İlk denemede doğru</span></div>'+
+ R.perCase.map(function(p,i){return '<div class="stat"><span class="n" id="case'+(i+1)+'Score">'+p.first+' / '+p.total+'</span><span class="d">Vaka '+(i+1)+' · '+esc(p.c.short)+' (ilk denemede doğru)</span></div>';}).join("")+
+ '<div class="stat"><span class="n">'+R.attempts+'</span><span class="d">Toplam deneme sayısı</span></div></div>'+
+ '<h2>Tekrar göz atman gereken kavramlar</h2>'+(R.revisit.length?'<ul class="rev" id="revisit">'+R.revisit.map(function(k){return '<li><b>'+esc(k)+':</b> '+esc(CONCEPTS[k])+'</li>';}).join("")+'</ul>':'<p id="revisit">Tüm görevleri ilk denemede doğru çözdün. Harika bir danışman gibi düşündün.</p>')+
+ '<h2>Görev görev cevapların</h2><div class="tblwrap"><table class="tbl" id="ansTable"><tr><th>#</th><th>Görev</th><th>Kavram</th><th>İlk denemede</th><th>Deneme</th></tr>'+R.rows.map(function(x){return '<tr><td>'+x.t.n+'</td><td>'+esc(x.t.q)+'</td><td>'+esc(x.t.concepts.join(", "))+'</td><td class="'+(x.firstOk?'ok':'no')+'">'+(x.count?(x.firstOk?'Doğru':'Yanlış'):'-')+'</td><td>'+x.count+'</td></tr>';}).join("")+'</table></div>'+
+ '</article>'+
+ '<section class="card" id="sendBox" style="margin-top:18px"><p class="eyebrow">Sonuçlarını kaydet ve gönder</p><h2 style="margin-top:0">Bilgilerin</h2>'+
+ '<div class="row"><div><label for="fName">Ad Soyad *</label><input id="fName" autocomplete="name" required value="'+esc(S.name)+'"></div><div><label for="fEmail">E-posta (isteğe bağlı)</label><input id="fEmail" type="email" autocomplete="email" value="'+esc(S.email)+'"></div></div>'+
+ '<div class="actions"><button class="btn" id="btnDownload" type="button">Sonuçları indir</button><button class="btn accent" id="btnSend" type="button">Işıl Tabağ’a Gönder</button></div><div id="sendMsg" role="status" aria-live="polite"></div>'+
+ '<p class="muted" style="font-size:13.5px;margin-top:8px">İndirilen dosyayı açıp “Yazdır / PDF olarak kaydet” düğmesiyle PDF olarak saklayabilirsin.</p>'+
+ '<div class="nav"><button class="btn" id="btnPrev" type="button">← Önceki</button><button class="btn" id="btnHome" type="button">Başa dön</button></div></section>';
+ v.innerHTML=html;
+ $("fName").addEventListener("input",function(){S.name=this.value;this.classList.remove("field-err");save();});
+ $("fEmail").addEventListener("input",function(){S.email=this.value;save();});
+ $("btnPrev").onclick=function(){go(TOTAL-1);};
+ $("btnHome").onclick=function(){ONCOVER=true;render();window.scrollTo(0,0);};
+ $("btnDownload").onclick=doDownload;$("btnSend").onclick=doSend;
+}
+function status(cls,txt){var m=$("sendMsg");m.className=cls;m.textContent=txt;}
+function validate(){var n=$("fName").value.trim();if(!n){status("err","Lütfen önce adını ve soyadını yaz.");$("fName").classList.add("field-err");$("fName").focus();return null;}return {name:n,email:$("fEmail").value.trim()};}
+function slug(s){return s.toLocaleLowerCase("tr").replace(/ç/g,"c").replace(/ğ/g,"g").replace(/ı/g,"i").replace(/ö/g,"o").replace(/ş/g,"s").replace(/ü/g,"u").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"ogrenci";}
+function buildDownload(who){
+ var R=report(),when=nowTR();
+ var css='body{font-family:Inter,"Segoe UI",Arial,sans-serif;color:#2b2f36;max-width:820px;margin:24px auto;padding:0 20px;line-height:1.55;font-size:14px}h1{color:#152c48;font-size:24px;margin:0 0 4px}h2{color:#152c48;font-size:18px;border-bottom:2px solid #152c48;padding-bottom:4px;margin-top:28px}h3{color:#152c48;font-size:15px;margin:18px 0 6px}table{border-collapse:collapse;width:100%;margin:8px 0 14px}th,td{border:1px solid #cfd6e2;padding:6px 8px;text-align:left;vertical-align:top}th{background:#f1f4f8;color:#152c48}.sub{color:#5d6672}.ok{color:#1f5e4b;font-weight:700}.no{color:#8a3a2d;font-weight:700}.score{font-size:20px;font-weight:700;color:#152c48}.bar{background:#152c48;color:#fff;padding:10px 14px;border-radius:8px;margin-bottom:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.bar button{background:#b59154;color:#fff;border:0;border-radius:6px;padding:8px 14px;font:inherit;font-weight:700;cursor:pointer}.box{border-left:4px solid #b59154;background:#f5f7fa;padding:10px 14px;margin:8px 0;white-space:pre-wrap}.exp{color:#3a4150;margin:4px 0 0}@media print{.bar{display:none}body{margin:0}h2{page-break-after:avoid}.task{page-break-inside:avoid}}';
+ var h='<!DOCTYPE html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Illusion of Choice · Vaka Sonuçları · '+esc(who.name)+'</title><style>'+css+'</style></head><body>';
+ h+='<div class="bar"><button type="button" onclick="window.print()">Yazdır / PDF olarak kaydet</button><span>Yazdırma penceresinde hedef olarak “PDF olarak kaydet”i seçebilirsin.</span></div>';
+ h+='<h1>The Illusion of Choice · Vaka Çalışması</h1><p class="sub">Richard Shotton · Hazırlayan: Işıl Tabağ</p>';
+ h+='<table><tr><th>Ad Soyad</th><td>'+esc(who.name)+'</td></tr><tr><th>E-posta</th><td>'+esc(who.email||"(belirtilmedi)")+'</td></tr><tr><th>Tarih</th><td>'+esc(when)+'</td></tr></table>';
+ h+='<h2>Rapor</h2><p class="score">İlk denemede doğru: '+R.first+' / '+R.total+'</p><table><tr><th>Vaka</th><th>İlk denemede doğru</th><th>Toplam deneme</th></tr>'+R.perCase.map(function(p,i){return '<tr><td>Vaka '+(i+1)+': '+esc(p.c.title)+'</td><td>'+p.first+' / '+p.total+'</td><td>'+p.attempts+'</td></tr>';}).join("")+'</table>';
+ h+='<h3>Tekrar göz atılacak kavramlar</h3>'+(R.revisit.length?'<ul>'+R.revisit.map(function(k){return '<li><b>'+esc(k)+':</b> '+esc(CONCEPTS[k])+'</li>';}).join("")+'</ul>':'<p>Yok. Tüm görevler ilk denemede doğru çözüldü.</p>');
+ CASES.forEach(function(c,ci){
+  h+='<h2>Vaka '+(ci+1)+': '+esc(c.title)+'</h2><p>'+esc(c.situation)+'</p><ul>'+c.findings.map(function(f){return '<li>'+esc(f)+'</li>';}).join("")+'</ul>';
+  R.rows.filter(function(x){return x.t.caseIdx===ci;}).forEach(function(x){
+   h+='<div class="task"><h3>Görev '+x.t.local+': '+esc(x.t.q)+'</h3><table><tr><th style="width:150px">İlk cevabın</th><td>'+esc(x.firstText)+'</td></tr><tr><th>İlk denemede</th><td class="'+(x.firstOk?'ok':'no')+'">'+(x.count?(x.firstOk?'Doğru':'Yanlış'):'-')+'</td></tr><tr><th>Deneme sayısı</th><td>'+x.count+'</td></tr><tr><th>Tüm denemeler</th><td>'+(x.all.length?x.all.map(esc).join('<br>'):'-')+'</td></tr><tr><th>En iyi cevap</th><td>'+esc(x.correct)+'</td></tr><tr><th>Kavram</th><td>'+esc(x.t.concepts.join(", "))+'</td></tr></table><p class="exp">'+esc(x.t.fb)+'</p></div>';
+  });
+  h+='<h3>Kendi çözümün</h3><div class="box">'+(S.free[c.id]&&S.free[c.id].trim()?esc(S.free[c.id].trim()):'(Yazılmadı)')+'</div>';
+ });
+ h+='<h2>Kavram özeti</h2><p>Bu vakalarda kullandığın kitap fikirleri:</p><ul>'+R.used.map(function(k){return '<li><b>'+esc(k)+':</b> '+esc(CONCEPTS[k])+'</li>';}).join("")+'</ul>';
+ h+='<p class="sub" style="margin-top:24px">Moka ve FitLine öğretim amacıyla kurgulanmış şirketlerdir. Kitaptaki etkiler olası eğilimlerdir; her insanda ve her koşulda aynı sonucu vermez.</p></body></html>';
+ return h;
+}
+function doDownload(){
+ var who=validate();if(!who)return;
+ var blob=new Blob([buildDownload(who)],{type:"text/html;charset=utf-8"});var url=URL.createObjectURL(blob);
+ var a=document.createElement("a");a.href=url;a.download="illusion-of-choice-vaka-sonuclari-"+slug(who.name)+".html";document.body.appendChild(a);a.click();document.body.removeChild(a);
+ setTimeout(function(){URL.revokeObjectURL(url);},4000);
+ status("ok","Sonuç dosyan indirildi. Dosyayı açıp “Yazdır / PDF olarak kaydet” düğmesiyle PDF olarak saklayabilirsin.");
+}
+function buildPayload(who){
+ var R=report();
+ var d={_subject:"Illusion of Choice vaka cevapları - "+who.name,_template:"table",_captcha:"false","Öğrenci":who.name,"Öğrenci e-postası":who.email||"-","Gönderim zamanı":nowTR(),"İlk denemede doğru":R.first+" / "+R.total};
+ if(who.email)d._replyto=who.email;
+ R.perCase.forEach(function(p,i){d["Vaka "+(i+1)+" ("+p.c.short+")"]=p.first+" / "+p.total+" ilk denemede doğru, toplam "+p.attempts+" deneme";});
+ d["Tekrar edilecek kavramlar"]=R.revisit.length?R.revisit.join(", "):"Yok";
+ R.rows.forEach(function(x){
+  var key=(x.t.caseIdx===0?"Moka":"FitLine")+" "+x.t.local+" ("+x.t.concepts.join(", ")+")";
+  d[key]=x.count?("İlk cevap: "+x.firstText+" ["+(x.firstOk?"Doğru":"Yanlış")+"] | Deneme sayısı: "+x.count+" | Tüm denemeler: "+x.all.join(" → ")):"Cevaplanmadı";
+ });
+ CASES.forEach(function(c,i){d["Kendi çözümü - Vaka "+(i+1)+" ("+c.short+")"]=(S.free[c.id]||"").trim()||"(Yazılmadı)";});
+ return d;
+}
+function doSend(){
+ var who=validate();if(!who)return;
+ var data=buildPayload(who),btn=$("btnSend");
+ try{localStorage.setItem(KEY+"_last_submission",JSON.stringify(data));}catch(e){}
+ btn.disabled=true;status("","Gönderiliyor…");
+ fetch(FORM_URL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)})
+ .then(function(res){return res.json().catch(function(){return {};}).then(function(j){if(res.ok&&String(j.success)!=="false"){status("ok","Teşekkürler "+who.name+"! Sonuçların Işıl Tabağ’a gönderildi.");}else throw new Error(j.message||res.status);});})
+ .catch(function(){status("err","Gönderilemedi. İnternet bağlantını kontrol edip tekrar dene. Cevapların bu cihazda kayıtlı; istersen sonuçlarını indirebilirsin.");})
+ .then(function(){btn.disabled=false;});
+}
+window.__IOCV={report:report,payload:buildPayload,KEY:KEY,STEPS:STEPS,ALLT:ALLT,cIdx:cIdx};
+render();
+})();
+</script>
+</body>
+</html>
