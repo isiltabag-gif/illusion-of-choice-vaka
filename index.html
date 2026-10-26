@@ -80,6 +80,7 @@ ul.rev{padding-left:20px}ul.rev li{margin-bottom:8px}
 .row{display:flex;gap:12px;flex-wrap:wrap}.row>div{flex:1 1 220px}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 #sendMsg{margin-top:12px;font-weight:600;min-height:22px}#sendMsg.ok{color:var(--ok)}#sendMsg.err{color:var(--bad)}
+.errmsg{color:var(--bad);font-weight:600;margin-top:10px}.errmsg:empty{display:none}
 .field-err{border-color:var(--bad)!important}
 .hidden{display:none!important}
 footer{max-width:900px;margin:auto;padding:16px 20px 30px;font-size:13px;color:var(--muted);border-top:1px solid var(--line)}
@@ -94,7 +95,7 @@ footer{max-width:900px;margin:auto;padding:16px 20px 30px;font-size:13px;color:v
  <div class="plabel"><span id="plabel">Hazırlayan: Işıl Tabağ</span><span id="psolved"></span></div>
 </header>
 <main id="view" tabindex="-1"></main>
-<footer>Richard Shotton’ın <i>The Illusion of Choice</i> kitabındaki fikirlerden hazırlanmış özgün vaka çalışması. Moka ve FitLine öğretim amacıyla kurgulanmış şirketlerdir. Kitaptaki etkiler olası eğilimlerdir; her insanda ve her koşulda aynı sonucu vermez.</footer>
+<footer>Richard Shotton’ın <i>The Illusion of Choice</i> kitabındaki fikirlerden hazırlanmış özgün vaka çalışması. Moka öğretim amacıyla kurgulanmış bir şirkettir. Kitaptaki etkiler olası eğilimlerdir; her insanda ve her koşulda aynı sonucu vermez.</footer>
 <script>
 var CONCEPTS={
 "Kolaylaştırmak":"İnsanlar bir şeyi istese bile uzun form veya belirsiz adımlar yüzünden vazgeçebilir. Daha çok ikna etmeden önce yoldaki engelleri kaldır.",
@@ -103,13 +104,6 @@ var CONCEPTS={
 "Somut anlatım":"Somut ifadeler zihinde görüntü oluşturur. 'Harika deneyim' yerine müşterinin hangi işinin, nasıl kolaylaştığını anlat.",
 "Zirve ve son":"Bir deneyim çoğunlukla en yoğun anı ve sonu üzerinden hatırlanır. Önce en kötü anı düzelt, sonra iyi bir kapanış tasarla.",
 "Deney yapmak":"Mantıklı görünen bir fikir işe yaramayabilir. Benzer gruplarda tek bir şeyi değiştir, aynı ölçütle karşılaştır.",
-"Adalet algısı":"İnsanlar bir teklifi yalnızca fiyatına değil, adil olup olmadığına göre de değerlendirir ve başkalarına yapılanla kıyaslar.",
-"Çerçeveleme":"Aynı bilgi farklı sözcüklerle anlatıldığında farklı hissettirebilir. Hangi yönün öne çıkarıldığı kararı etkiler.",
-"Seçim özgürlüğü":"Karar özgürlüğü tehdit edilen insanlar direnebilir (tepkisellik). Gerçek seçenekler sunmak daha yapıcıdır.",
-"Yüzdenin tabanı":"Bir yüzde, neyin yüzdesi olduğu bilinmeden anlam taşımaz. Farklı tabanlara uygulanan yüzdeler doğrudan karşılaştırılamaz.",
-"Paydayı unutma":"Görünen sayı tek başına yetmez; toplamı, yani paydayı da bilmek gerekir. Kişi başına, birim başına düşen değere bak.",
-"Mizahın gücü":"Mizah dikkat ve hatırlamayı destekleyebilir; ama bağlam yanlışsa ya da şaka ana mesajı gölgelerse ters tepebilir.",
-"Halo etkisi":"Tek bir olumlu özellik, diğer özelliklerin de olumlu değerlendirilmesine yol açabilir. 'İyi görünüyor' ile 'iyi çalışıyor' ayrı sorulardır."
 };
 var CASES=[
 {id:"c1",short:"Moka",title:"Moka kahve zincirinin mobil uygulaması",
@@ -171,58 +165,6 @@ var CASES=[
    {t:"Yeni akışı yalnızca en kalabalık şubede denemek ve sonuçları o şubenin geçen yılın aynı ayıyla karşılaştırmak.",w:"En kalabalık şube diğerlerine benzemeyebilir; geçen yıldan bu yana da pek çok şey değişmiştir. Karşılaştırılan gruplar benzer olmalı ve aynı dönemde ölçülmeli."},
    {t:"Şube çalışanlarına hangi akışın daha iyi olduğunu sormak ve çoğunluğun tercih ettiğini tüm şubelerde uygulamak.",w:"Çalışanların görüşü değerli ama müşterinin gerçek davranışını ölçmez. Tahmin değil, ölçüm gerekir."}],
   fb:"Mantıklı görünen bir fikir her zaman işe yaramaz. Benzer gruplar, tek değişken ve aynı ölçüt (tekrar sipariş oranı) sayesinde farkın yeni akıştan kaynaklanıp kaynaklanmadığını daha iyi görürsün. Küçük bir test kesin kanıt değildir ama tahminden çok daha güçlüdür."}
- ]},
-{id:"c2",short:"FitLine",title:"FitLine spor salonunun zammı",
- situation:"FitLine bir spor salonu zinciri. Aylık üyelik ücretini 800 TL’den 1.000 TL’ye çıkardı ve üyelere tek satırlık bir e-posta gönderdi: “Önümüzdeki aydan itibaren üyelik ücretiniz otomatik olarak 1.000 TL olacaktır.” Sonraki ay iptaller iki katına çıktı; sosyal medyada “haksızlık” yorumları arttı.",
- findings:[
-  "Aynı dönemde yeni üyelere “ilk ay ücretsiz” kampanyası yapılıyor. Yıllardır üye olanlar kızgın.",
-  "E-postada yalnızca iki yol var: zammı kabul etmek ya da üyeliği iptal etmek.",
-  "Rakip salon “%25 daha fazla ekipman” diye reklam veriyor.",
-  "Pazarlama ekibi, krizi unutturmak için komik bir video çekmeyi öneriyor.",
-  "Yönetim, salonun giriş alanını parlak ve pahalı bir tasarımla yenilemeyi düşünüyor."
- ],
- freePrompt:"FitLine için eski üyelere göndereceğin kısa mesajı ya da 3 adımlık planını yaz.",
- tasks:[
- {id:"f1",concepts:["Adalet algısı"],kind:"En iyi iş kararını seç",
-  q:"Eski üyelerin öfkesini en iyi açıklayan ve buna uygun bir çözüm sunan seçenek hangisi?",
-  o:[
-   {t:"Üyeler 200 TL’lik farkı ödeyemediği için kızgın; tek çözüm zammı tamamen geri almak.",w:"Para önemli ama tek neden değil: Yorumlarda “pahalı” değil, “haksızlık” deniyor. Zammın gerçek bir maliyet nedeni de olabilir; tamamen geri almak tek yol değildir."},
-   {t:"Üyeler kendini yeni üyelerle kıyaslayıp haksızlık hissediyor; zammın nedenini açıklamak ve eski üyelere birkaç ay eski fiyattan devam etme hakkı tanımak.",c:1},
-   {t:"Üyeler yalnızca değişime direnç gösteriyor; birkaç ay içinde yeni fiyata alışırlar, şimdilik bir şey yapmaya gerek yok.",w:"İptaller iki katına çıkmışken beklemek riskli. Haksızlık hissi kendiliğinden geçmeyebilir."},
-   {t:"Yeni üye kampanyasını daha çok duyurmak; salon kalabalıklaşıp canlandıkça eski üyeler de memnun olur.",w:"Yeni üyelere verilen ayrıcalığı daha görünür yapmak, eski üyelerin karşılaştırmasını daha da keskinleştirir."}],
-  fb:"İnsanlar bir teklifi yalnızca fiyatına göre değil, adil olup olmadığına göre de değerlendirir ve başkalarına yapılanla kıyaslar. Yıllardır ödeyen üyeye zam, yeni gelene bedava ay: Bu kıyas haksızlık hissi yaratır. Gerekçeyi açıklamak ve sadakati tanımak bu algıyı onarabilir."},
- {id:"f2",concepts:["Çerçeveleme","Seçim özgürlüğü"],kind:"Daha iyi e-postayı seç",
-  q:"Zam e-postasını yeniden yazıyorsun. Hangisi daha iyi?",
-  o:[
-   {t:"“Sayın üyemiz, artan maliyetler nedeniyle ücretiniz 1.000 TL’ye yükseltilmiştir. Yeni ücreti kabul etmeyen üyelerimizin üyeliği iptal edilecektir.”",w:"Bir gerekçe var ama “kabul etmeyenin üyeliği iptal edilecek” bir tehdit gibi okunuyor. Özgürlüğü kısıtlanan insanlar direnç gösterebilir."},
-   {t:"“Müjde! FitLine ailesi büyüyor! Yeni dönemde sana daha iyi hizmet verebilmek için ücretlerimizi güncelledik. Ayrıntılar için şubemize uğra.”",w:"“Müjde” çerçevesi zammı gizlemeye çalışıyor; üyeler bunu fark edince güven daha da azalır. Üstelik hiçbir seçenek sunulmuyor."},
-   {t:"“Merhaba, önümüzdeki aydan itibaren aylık ücret 1.000 TL olacak. Bu fiyat hâlâ bölgedeki birçok salondan uygun; bu yüzden üyeliğini sürdürmen senin için en doğru karar olur ve sürdürmen gerekir.”",w:"Karşılaştırma bilgisi işe yarayabilir ama “sürdürmen gerekir” baskı kuruyor ve gerçek bir seçenek sunmuyor."},
-   {t:"“Merhaba, kira ve enerji giderlerimiz arttığı için aylık ücret 1.000 TL olacak. Sana uyan yolu seçebilirsin: yıllık ödemeyle aylık 850 TL’ye denk gelen fiyatla devam etmek, hafta içi gündüz paketiyle 800 TL’de kalmak ya da üyeliğini 2 aya kadar ücretsiz dondurmak.”",c:1}],
-  fb:"“Otomatik olarak” ve “kabul et ya da iptal et” ifadeleri kontrolün elinden alındığı hissini verir; bu da tepkisellik yaratabilir. Gerekçeyi açıkça anlatmak ve gerçek seçenekler sunmak, üyeye kararı kendisinin verdiğini hissettirir. Yıllık ödeme, gündüz paketi ve dondurma, aynı zammı daha adil bir çerçevede sunar."},
- {id:"f3",concepts:["Yüzdenin tabanı","Paydayı unutma"],kind:"Kusuru bul",
-  q:"Rakip salon “%25 daha fazla ekipman” diyor. Bu iddiayı değerlendirirken soracağın en önemli soru hangisi?",
-  o:[
-   {t:"Neye göre %25 daha fazla? Hangi salonla, hangi ekipmanlarla karşılaştırılıyor ve üye başına kaç ekipman düşüyor?",c:1},
-   {t:"%25, üyelerin salonda gerçekten fark edeceği ve salon değiştirecek kadar büyük bir fark mı?",w:"Büyüklüğü tartışmadan önce neyle karşılaştırıldığını bilmek gerekir. Taban küçükse %25 çok küçük bir fark olabilir."},
-   {t:"Rakibin reklamı bizimkinden daha dikkat çekici ve profesyonel mi görünüyor?",w:"Reklamın görünümü iddianın ne anlama geldiğini ya da doğru olup olmadığını göstermez."},
-   {t:"Biz de “%30 daha fazla ekipman” diye bir reklam versek üyeleri geri kazanır mıyız?",w:"Bu, ilk iddiayı anlamadan verilen bir tepki olur ve aynı belirsizliği taşır. Önce sayıların tabanını sor."}],
-  fb:"Bir yüzde, neyin yüzdesi olduğu bilinmeden anlam taşımaz: 20 makineye karşı 25 makine de “%25 fazla”dır. Rakip salonun üye sayısı iki katıysa, üye başına düşen ekipman daha az bile olabilir. Taban ve payda sorulmadan iddia değerlendirilemez."},
- {id:"f4",concepts:["Mizahın gücü"],kind:"Riski bul",
-  q:"Pazarlama ekibi krizi unutturmak için komik bir video öneriyor. Bu fikrin en büyük riski nedir?",
-  o:[
-   {t:"Komik videolar hiçbir koşulda işe yaramaz; ciddi bir marka mizahı hiç kullanmamalıdır.",w:"Bu fazla kesin. Mizah doğru koşullarda dikkat ve hatırlamayı destekleyebilir. Sorun mizahın kendisi değil, zamanı ve bağlamı."},
-   {t:"Video yeterince komik olmazsa izlenmez; bu yüzden tanınmış bir komedyenle çalışmak gerekir.",w:"Daha komik olmak asıl riski azaltmaz. Kızgın üyelere şaka yapmanın nasıl algılanacağını düşün."},
-   {t:"Üyeler haksızlığa uğradığını hissederken yapılan şaka, sorunu ciddiye almamak gibi algılanabilir; espri hatırlanırken asıl mesaj kaybolabilir.",c:1},
-   {t:"Video çekmek pahalıdır; o bütçe salonun yeni giriş alanına harcanmalıdır.",w:"Maliyet önemli bir soru ama asıl risk, mizahın bu kriz anında nasıl algılanacağı."}],
-  fb:"Mizah dikkat ve hatırlamayı destekleyebilir ama bağlam önemlidir. Kriz anında kızgın üyelere şaka yapmak “bizi dinlemiyorlar” mesajı verebilir. Şaka ana mesajı gölgelerse insanlar espriyi hatırlar, sorunun nasıl çözüldüğünü değil. Önce sorunu çöz, mizahı sonra düşün."},
- {id:"f5",concepts:["Halo etkisi"],kind:"En doğru değerlendirmeyi seç",
-  q:"Yönetim giriş alanını parlak ve pahalı bir tasarımla yenilemeyi düşünüyor. Bu karar hakkında hangisi en doğru değerlendirmedir?",
-  o:[
-   {t:"Giriş güzelleşirse üyeler ekipmanların ve eğitmenlerin de daha iyi olduğunu düşünür; diğer sorunlarla uğraşmaya gerek kalmaz.",w:"Bu, etkinin abartılması. Algı bir eğilimdir; üye her gün makineleri, kalabalığı ve eğitmenleri kendisi yaşar."},
-   {t:"Giriş alanının algıya hiçbir etkisi yoktur; üyeler yalnızca ekipmanlara ve fiyata bakar.",w:"Bu da fazla kesin. İlk izlenim, diğer özelliklerin nasıl değerlendirildiğini etkileyebilir."},
-   {t:"Parlak bir giriş, zammın neden yapıldığını kendiliğinden açıklar; üyelere ayrıca bir açıklama yapmaya gerek kalmaz.",w:"Görünüş adalet sorusunu çözmez. Eski üyelerin haksızlık hissi giriş tasarımıyla değil, açık gerekçe ve adil tekliflerle ele alınır."},
-   {t:"Etkileyici bir giriş, salonun geri kalanının da olumlu algılanmasına yardımcı olabilir; ama bozuk makine veya kalabalık gibi gerçek sorunları ortadan kaldırmaz.",c:1}],
-  fb:"Tek bir olumlu özellik, diğer özelliklerin de olumlu değerlendirilmesine yol açabilir. Parlak bir giriş salonu daha kaliteli gösterebilir ama “iyi görünüyor” ile “iyi çalışıyor” ayrı sorulardır. Üye antrenman sırasında gerçek hizmeti yaşar; güzel görünüm kötü bir hizmeti telafi etmez."}
  ]}
 ];
 
@@ -230,7 +172,7 @@ var CASES=[
 <script>
 (function(){
 "use strict";
-var KEY="ioc_vaka_isil_tabag_v1";
+var KEY="ioc_vaka_isil_tabag_v2";
 var FORM_URL="https://formsubmit.co/ajax/isiltabag@gmail.com";
 var L=["A","B","C","D"];
 var STEPS=[],TASKS={},ALLT=[];
@@ -240,9 +182,9 @@ CASES.forEach(function(c,ci){
  STEPS.push({type:"free",c:c});
 });
 var TOTAL=STEPS.length;
-function blank(){return {v:1,step:-1,a:{},free:{c1:"",c2:"",},name:"",email:"",started:null,updated:null};}
-function load(){try{var o=JSON.parse(localStorage.getItem(KEY)||"null");if(!o||o.v!==1)return blank();var b=blank();for(var k in b)if(!(k in o))o[k]=b[k];if(typeof o.step!=="number"||o.step<-1||o.step>TOTAL)o.step=-1;return o;}catch(e){return blank();}}
-var S=load();var ONCOVER=true;
+function blank(){return {v:2,step:-1,a:{},free:{c1:""},name:"",email:"",sent:false,sentAt:null,started:null,updated:null};}
+function load(){try{var o=JSON.parse(localStorage.getItem(KEY)||"null");if(!o||o.v!==2)return blank();var b=blank();for(var k in b)if(!(k in o))o[k]=b[k];if(typeof o.step!=="number"||o.step<-1||o.step>TOTAL)o.step=-1;return o;}catch(e){return blank();}}
+var S=load();var ONCOVER=true;var SENDING=false;
 function save(){S.updated=new Date().toISOString();try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
 function $(id){return document.getElementById(id);}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
@@ -255,7 +197,7 @@ function header(){
  var st=ONCOVER?-1:S.step,lab,where;
  if(st<0){lab="Hazırlayan: Işıl Tabağ";where="Başlangıç";$("pbar").style.width="0%";}
  else if(st>=TOTAL){lab="Rapor";where="Sonuçlar";$("pbar").style.width="100%";}
- else{var s=STEPS[st];lab="Kart "+(st+1)+" / "+TOTAL;where="Vaka "+(CASES.indexOf(s.c)+1)+" · "+s.c.short;$("pbar").style.width=((st+1)/TOTAL*100)+"%";}
+ else{var s=STEPS[st];lab="Kart "+(st+1)+" / "+TOTAL;where="Vaka · "+s.c.short;$("pbar").style.width=((st+1)/TOTAL*100)+"%";}
  $("plabel").textContent=lab;$("where").textContent=where;
  $("psolved").textContent=(st>=0||hasProgress())?solvedCount()+" / "+ALLT.length+" görev çözüldü":"";
 }
@@ -276,21 +218,25 @@ function render(){
 }
 function renderCover(v){
  var resume=hasProgress();
- v.innerHTML='<section class="cover"><div class="rule"></div><p class="eyebrow"><span lang="en">Richard Shotton</span> · Vaka çalışması</p><h1>The Illusion<br>of Choice</h1><p class="sub">Kitapta öğrendiklerinle iki gerçekçi iş problemini çöz.</p><hr><p class="meta">2 vaka · '+ALLT.length+' görev · Açıklamalı geri bildirim · Sonunda rapor</p><p class="meta" style="margin-top:14px"><b style="color:#fff">Işıl Tabağ</b></p></section>'+
+ v.innerHTML='<section class="cover"><div class="rule"></div><p class="eyebrow"><span lang="en">Richard Shotton</span> · Vaka çalışması</p><h1>The Illusion<br>of Choice</h1><p class="sub">Kitapta öğrendiklerinle gerçekçi bir iş problemini çöz.</p><hr><p class="meta">1 vaka · '+ALLT.length+' görev · Açıklamalı geri bildirim · Sonunda rapor</p><p class="meta" style="margin-top:14px"><b style="color:#fff">Işıl Tabağ</b></p></section>'+
  '<section class="card letter"><div class="rule"></div><h2 style="margin-top:0">Başlamadan önce</h2>'+
  '<p>Sevgili öğrencim,</p>'+
- '<p>The Illusion of Choice kitabında insanların seçimlerini nelerin etkilediğini birlikte keşfettin: alışkanlıklar, kullanılan kelimeler, seçeneklerin nasıl sunulduğu, adalet duygusu ve bir deneyimin nasıl bittiği. Şimdi bu fikirleri kullanma zamanı.</p>'+
- '<p>Bu çalışmada bir danışman gibi düşünmeni istiyorum. Önünde iki şirket var: Bir kahve zinciri ve bir spor salonu. İkisinin de gerçek hayatta sık karşılaşılan sorunları var. Önce durumu ve bulguları dikkatle oku, sonra her görevde en iyi kararı seç.</p>'+
- '<p>Yanlış bir seçim yaparsan üzülme; nedenini açıklayacağım ve tekrar deneyebileceksin. İyi danışmanlar da ilk tahminlerini sorgular. İstersen her vakanın sonunda kendi çözümünü de yazabilirsin.</p>'+
- '<p>Sonunda bir rapor göreceksin. Sonuçlarını indirip saklayabilir ve bana gönderebilirsin.</p>'+
+ '<p>The Illusion of Choice kitabında insanların seçimlerini nelerin etkilediğini birlikte keşfettin: alışkanlıklar, kullanılan kelimeler, seçeneklerin nasıl sunulduğu ve bir deneyimin nasıl bittiği. Şimdi bu fikirleri kullanma zamanı.</p>'+
+ '<p>Bu çalışmada bir danışman gibi düşünmeni istiyorum. Önünde Moka adlı bir kahve zinciri var. Uygulaması çok indirilmiş ama az kullanılıyor; bu, gerçek hayatta şirketlerin sık karşılaştığı bir sorun. Önce durumu ve bulguları dikkatle oku, sonra her görevde en iyi kararı seç.</p>'+
+ '<p>Yanlış bir seçim yaparsan üzülme; nedenini açıklayacağım ve tekrar deneyebileceksin. İyi danışmanlar da ilk tahminlerini sorgular. İstersen sonunda kendi çözümünü de yazabilirsin.</p>'+
+ '<p>Sonunda bir rapor göreceksin ve cevapların bana otomatik olarak gönderilecek. Sonuçlarını indirip saklayabilirsin de.</p>'+
  '<p>Sevgilerimle,</p><p class="sign">Işıl Tabağ</p></section>'+
- '<section class="card startbox" id="startCard">'+(resume?'<p class="muted" id="resumeInfo">Kayıtlı ilerlemen var: '+(S.step>=TOTAL?'Rapor ekranı':'Kart '+(Math.max(S.step,0)+1)+' / '+TOTAL)+' · '+solvedCount()+' / '+ALLT.length+' görev çözüldü.</p><div class="actions" style="margin:0"><button class="btn" id="btnRestart" type="button">Baştan başla</button><button class="btn primary" id="btnResume" type="button" data-focus>Kaldığın yerden devam et →</button></div>':'<p class="muted">Kendi hızında ilerle; ilerlemen bu cihazda otomatik kaydedilir.</p><button class="btn primary" id="btnStart" type="button" data-focus>Vakaya başla →</button>')+'</section>';
- if(resume){$("btnResume").onclick=function(){go(Math.max(S.step,0));};$("btnRestart").onclick=function(){if(confirm("Tüm cevapların silinip baştan başlanacak. Emin misin?")){var n=S.name,e=S.email;S=blank();S.name=n;S.email=e;go(0);}};}
- else $("btnStart").onclick=function(){go(0);};
+ '<section class="card" id="startCard" style="margin-top:18px"><p class="eyebrow">Başlamadan önce bilgilerin</p><div class="row"><div><label for="fName">Ad Soyad *</label><input id="fName" autocomplete="name" required value="'+esc(S.name)+'"></div><div><label for="fEmail">E-posta (isteğe bağlı)</label><input id="fEmail" type="email" autocomplete="email" value="'+esc(S.email)+'"></div></div><div id="startMsg" role="alert" aria-live="polite" class="errmsg"></div>'+
+ (resume?'<p class="muted" id="resumeInfo" style="margin-top:12px">Kayıtlı ilerlemen var: '+(S.step>=TOTAL?'Rapor ekranı':'Kart '+(Math.max(S.step,0)+1)+' / '+TOTAL)+' · '+solvedCount()+' / '+ALLT.length+' görev çözüldü.</p><div class="actions"><button class="btn" id="btnRestart" type="button">Baştan başla</button><button class="btn primary" id="btnResume" type="button">Kaldığın yerden devam et →</button></div>':'<p class="muted" style="margin-top:12px">Adını ve soyadını yazmadan başlayamazsın. İlerlemen bu cihazda otomatik kaydedilir.</p><div class="actions"><button class="btn primary" id="btnStart" type="button">Vakaya başla →</button></div>')+'</section>';
+ $("fName").addEventListener("input",function(){S.name=this.value;this.classList.remove("field-err");$("startMsg").textContent="";save();});
+ $("fEmail").addEventListener("input",function(){S.email=this.value;save();});
+ function needName(){if(!$("fName").value.trim()){$("startMsg").textContent="Başlamak için lütfen adını ve soyadını yaz.";$("fName").classList.add("field-err");$("fName").focus();return false;}S.name=$("fName").value.trim();S.email=$("fEmail").value.trim();save();return true;}
+ if(resume){$("btnResume").onclick=function(){if(needName())go(Math.max(S.step,0));};$("btnRestart").onclick=function(){if(!needName())return;if(confirm("Tüm cevapların silinip baştan başlanacak. Emin misin?")){var n=S.name,e=S.email;S=blank();S.name=n;S.email=e;go(0);}};}
+ else $("btnStart").onclick=function(){if(needName())go(0);};
 }
 function renderScen(v,s){
  var ci=CASES.indexOf(s.c);
- v.innerHTML='<article class="card"><p class="eyebrow">Vaka '+(ci+1)+' · Durum</p><h1 data-focus tabindex="-1">'+esc(s.c.title)+'</h1><div class="situ">'+esc(s.c.situation)+'</div><h2>Bulgular</h2><ul class="find">'+s.c.findings.map(function(f){return '<li>'+esc(f)+'</li>';}).join("")+'</ul><p class="muted" style="margin-top:14px">Bu vakada '+s.c.tasks.length+' görev var. Bulgulara görevler sırasında bu karttan geri dönerek bakabilirsin.</p>'+navHTML(true)+'</article>';
+ v.innerHTML='<article class="card"><p class="eyebrow">Vaka · Durum</p><h1 data-focus tabindex="-1">'+esc(s.c.title)+'</h1><div class="situ">'+esc(s.c.situation)+'</div><h2>Bulgular</h2><ul class="find">'+s.c.findings.map(function(f){return '<li>'+esc(f)+'</li>';}).join("")+'</ul><p class="muted" style="margin-top:14px">Bu vakada '+s.c.tasks.length+' görev var. Bulgulara görevler sırasında bu karttan geri dönerek bakabilirsin.</p>'+navHTML(true)+'</article>';
  bindNav();
 }
 function taskFb(t,r,last){
@@ -310,7 +256,7 @@ function renderTask(v,s){
   if(r){if(r.att.indexOf(i)>=0&&i!==ci){cls+=" wrong";dis=true;}if(r.solved){dis=true;if(i===ci)cls+=" right";}}
   return '<button type="button" class="'+cls+'" data-i="'+i+'"'+(dis?' disabled':'')+'><span class="l">'+L[i]+'</span><span>'+esc(o.t)+'</span></button>';
  }).join("");
- v.innerHTML='<article class="card"><p class="eyebrow">Vaka '+(t.caseIdx+1)+' · Görev '+t.local+' / '+s.c.tasks.length+'</p><span class="kind">'+esc(t.kind)+'</span><p class="ctx">'+esc(s.c.title)+'</p><p class="q" data-focus tabindex="-1">'+esc(t.q)+'</p><div class="opts" id="opts">'+opts+'</div><div id="fbwrap">'+taskFb(t,r,last)+'</div>'+navHTML(!!(r&&r.solved),S.step===TOTAL-1?'Rapora geç →':null)+'</article>';
+ v.innerHTML='<article class="card"><p class="eyebrow">Moka · Görev '+t.local+' / '+s.c.tasks.length+'</p><span class="kind">'+esc(t.kind)+'</span><p class="ctx">'+esc(s.c.title)+'</p><p class="q" data-focus tabindex="-1">'+esc(t.q)+'</p><div class="opts" id="opts">'+opts+'</div><div id="fbwrap">'+taskFb(t,r,last)+'</div>'+navHTML(!!(r&&r.solved),S.step===TOTAL-1?'Rapora geç →':null)+'</article>';
  Array.prototype.forEach.call(document.querySelectorAll("#opts .opt"),function(b){b.onclick=function(){answer(t,+b.getAttribute("data-i"));};});
  bindNav();
 }
@@ -326,7 +272,7 @@ function answer(t,i){
 }
 function renderFree(v,s){
  var ci=CASES.indexOf(s.c),k=s.c.id;
- v.innerHTML='<article class="card"><p class="eyebrow">Vaka '+(ci+1)+' · Kendi çözümün</p><h1 data-focus tabindex="-1">Kendi çözümün <span class="muted" style="font-size:16px;font-weight:400">(isteğe bağlı)</span></h1><p>'+esc(s.c.freePrompt)+'</p><label for="freeText">Önerin</label><textarea id="freeText" maxlength="3000" placeholder="İstersen buraya yaz. Boş bırakıp devam edebilirsin.">'+esc(S.free[k]||"")+'</textarea><p class="muted" style="font-size:13.5px;margin-top:6px">Yazdıkların otomatik kaydedilir ve rapora eklenir.</p>'+navHTML(true,S.step===TOTAL-1?'Rapora geç →':null)+'</article>';
+ v.innerHTML='<article class="card"><p class="eyebrow">Moka · Kendi çözümün</p><h1 data-focus tabindex="-1">Kendi çözümün <span class="muted" style="font-size:16px;font-weight:400">(isteğe bağlı)</span></h1><p>'+esc(s.c.freePrompt)+'</p><label for="freeText">Önerin</label><textarea id="freeText" maxlength="3000" placeholder="İstersen buraya yaz. Boş bırakıp devam edebilirsin.">'+esc(S.free[k]||"")+'</textarea><p class="muted" style="font-size:13.5px;margin-top:6px">Yazdıkların otomatik kaydedilir ve rapora eklenir.</p>'+navHTML(true,S.step===TOTAL-1?'Rapora geç →':null)+'</article>';
  $("freeText").addEventListener("input",function(){S.free[k]=this.value;save();});
  bindNav();
 }
@@ -340,27 +286,26 @@ function report(){
 }
 function renderEnd(v){
  var R=report();
- var html='<article class="card"><p class="eyebrow">Danışmanlık raporun</p><h1 data-focus tabindex="-1">Vaka çalışmasını tamamladın</h1><p>İki şirketin sorunlarını kitaptaki fikirlerle çözdün. Aşağıda ilk denemelerine göre hazırlanmış raporunu görebilirsin.</p>'+
+ var html='<article class="card"><p class="eyebrow">Danışmanlık raporun</p><h1 data-focus tabindex="-1">Vaka çalışmasını tamamladın</h1><p>Moka’nın sorununu kitaptaki fikirlerle çözdün. Aşağıda ilk denemelerine göre hazırlanmış raporunu görebilirsin.</p>'+
  '<div class="stats"><div class="stat"><span class="n" id="scoreNum">'+R.first+' / '+R.total+'</span><span class="d">İlk denemede doğru</span></div>'+
- R.perCase.map(function(p,i){return '<div class="stat"><span class="n" id="case'+(i+1)+'Score">'+p.first+' / '+p.total+'</span><span class="d">Vaka '+(i+1)+' · '+esc(p.c.short)+' (ilk denemede doğru)</span></div>';}).join("")+
  '<div class="stat"><span class="n">'+R.attempts+'</span><span class="d">Toplam deneme sayısı</span></div></div>'+
  '<h2>Tekrar göz atman gereken kavramlar</h2>'+(R.revisit.length?'<ul class="rev" id="revisit">'+R.revisit.map(function(k){return '<li><b>'+esc(k)+':</b> '+esc(CONCEPTS[k])+'</li>';}).join("")+'</ul>':'<p id="revisit">Tüm görevleri ilk denemede doğru çözdün. Harika bir danışman gibi düşündün.</p>')+
  '<h2>Görev görev cevapların</h2><div class="tblwrap"><table class="tbl" id="ansTable"><tr><th>#</th><th>Görev</th><th>Kavram</th><th>İlk denemede</th><th>Deneme</th></tr>'+R.rows.map(function(x){return '<tr><td>'+x.t.n+'</td><td>'+esc(x.t.q)+'</td><td>'+esc(x.t.concepts.join(", "))+'</td><td class="'+(x.firstOk?'ok':'no')+'">'+(x.count?(x.firstOk?'Doğru':'Yanlış'):'-')+'</td><td>'+x.count+'</td></tr>';}).join("")+'</table></div>'+
  '</article>'+
- '<section class="card" id="sendBox" style="margin-top:18px"><p class="eyebrow">Sonuçlarını kaydet ve gönder</p><h2 style="margin-top:0">Bilgilerin</h2>'+
- '<div class="row"><div><label for="fName">Ad Soyad *</label><input id="fName" autocomplete="name" required value="'+esc(S.name)+'"></div><div><label for="fEmail">E-posta (isteğe bağlı)</label><input id="fEmail" type="email" autocomplete="email" value="'+esc(S.email)+'"></div></div>'+
- '<div class="actions"><button class="btn" id="btnDownload" type="button">Sonuçları indir</button><button class="btn accent" id="btnSend" type="button">Işıl Tabağ’a Gönder</button></div><div id="sendMsg" role="status" aria-live="polite"></div>'+
- '<p class="muted" style="font-size:13.5px;margin-top:8px">İndirilen dosyayı açıp “Yazdır / PDF olarak kaydet” düğmesiyle PDF olarak saklayabilirsin.</p>'+
+ '<section class="card" id="sendBox" style="margin-top:18px"><p class="eyebrow">Sonuçların</p><table class="tbl" style="max-width:520px"><tr><th>Ad Soyad</th><td id="repName">'+esc(S.name)+'</td></tr><tr><th>E-posta</th><td>'+esc(S.email||"(belirtilmedi)")+'</td></tr></table>'+
+ '<div id="sendMsg" role="status" aria-live="polite"></div><div class="actions"><button class="btn accent hidden" id="btnRetry" type="button">Tekrar gönder</button><button class="btn" id="btnDownload" type="button">Sonuçları indir</button></div>'+
+ '<p class="muted" style="font-size:13.5px;margin-top:8px">Cevapların Işıl Tabağ’a otomatik olarak gönderilir. İndirilen dosyayı açıp “Yazdır / PDF olarak kaydet” düğmesiyle PDF olarak saklayabilirsin.</p>'+
  '<div class="nav"><button class="btn" id="btnPrev" type="button">← Önceki</button><button class="btn" id="btnHome" type="button">Başa dön</button></div></section>';
  v.innerHTML=html;
- $("fName").addEventListener("input",function(){S.name=this.value;this.classList.remove("field-err");save();});
- $("fEmail").addEventListener("input",function(){S.email=this.value;save();});
  $("btnPrev").onclick=function(){go(TOTAL-1);};
  $("btnHome").onclick=function(){ONCOVER=true;render();window.scrollTo(0,0);};
- $("btnDownload").onclick=doDownload;$("btnSend").onclick=doSend;
+ $("btnDownload").onclick=doDownload;$("btnRetry").onclick=doSend;
+ if(S.sent)status("ok","Cevapların Işıl Tabağ’a gönderildi.");
+ else if(SENDING)status("","Cevapların gönderiliyor…");
+ else doSend();
 }
-function status(cls,txt){var m=$("sendMsg");m.className=cls;m.textContent=txt;}
-function validate(){var n=$("fName").value.trim();if(!n){status("err","Lütfen önce adını ve soyadını yaz.");$("fName").classList.add("field-err");$("fName").focus();return null;}return {name:n,email:$("fEmail").value.trim()};}
+function status(cls,txt){var m=$("sendMsg");if(!m)return;m.className=cls;m.textContent=txt;}
+function validate(){var n=(S.name||"").trim();if(!n){status("err","Ad Soyad eksik. Lütfen başa dönüp adını ve soyadını yaz.");return null;}return {name:n,email:(S.email||"").trim()};}
 function slug(s){return s.toLocaleLowerCase("tr").replace(/ç/g,"c").replace(/ğ/g,"g").replace(/ı/g,"i").replace(/ö/g,"o").replace(/ş/g,"s").replace(/ü/g,"u").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"ogrenci";}
 function buildDownload(who){
  var R=report(),when=nowTR();
@@ -369,17 +314,17 @@ function buildDownload(who){
  h+='<div class="bar"><button type="button" onclick="window.print()">Yazdır / PDF olarak kaydet</button><span>Yazdırma penceresinde hedef olarak “PDF olarak kaydet”i seçebilirsin.</span></div>';
  h+='<h1>The Illusion of Choice · Vaka Çalışması</h1><p class="sub">Richard Shotton · Hazırlayan: Işıl Tabağ</p>';
  h+='<table><tr><th>Ad Soyad</th><td>'+esc(who.name)+'</td></tr><tr><th>E-posta</th><td>'+esc(who.email||"(belirtilmedi)")+'</td></tr><tr><th>Tarih</th><td>'+esc(when)+'</td></tr></table>';
- h+='<h2>Rapor</h2><p class="score">İlk denemede doğru: '+R.first+' / '+R.total+'</p><table><tr><th>Vaka</th><th>İlk denemede doğru</th><th>Toplam deneme</th></tr>'+R.perCase.map(function(p,i){return '<tr><td>Vaka '+(i+1)+': '+esc(p.c.title)+'</td><td>'+p.first+' / '+p.total+'</td><td>'+p.attempts+'</td></tr>';}).join("")+'</table>';
+ h+='<h2>Rapor</h2><p class="score">İlk denemede doğru: '+R.first+' / '+R.total+'</p><p>Toplam deneme sayısı: '+R.attempts+'</p>';
  h+='<h3>Tekrar göz atılacak kavramlar</h3>'+(R.revisit.length?'<ul>'+R.revisit.map(function(k){return '<li><b>'+esc(k)+':</b> '+esc(CONCEPTS[k])+'</li>';}).join("")+'</ul>':'<p>Yok. Tüm görevler ilk denemede doğru çözüldü.</p>');
  CASES.forEach(function(c,ci){
-  h+='<h2>Vaka '+(ci+1)+': '+esc(c.title)+'</h2><p>'+esc(c.situation)+'</p><ul>'+c.findings.map(function(f){return '<li>'+esc(f)+'</li>';}).join("")+'</ul>';
+  h+='<h2>Vaka: '+esc(c.title)+'</h2><p>'+esc(c.situation)+'</p><ul>'+c.findings.map(function(f){return '<li>'+esc(f)+'</li>';}).join("")+'</ul>';
   R.rows.filter(function(x){return x.t.caseIdx===ci;}).forEach(function(x){
    h+='<div class="task"><h3>Görev '+x.t.local+': '+esc(x.t.q)+'</h3><table><tr><th style="width:150px">İlk cevabın</th><td>'+esc(x.firstText)+'</td></tr><tr><th>İlk denemede</th><td class="'+(x.firstOk?'ok':'no')+'">'+(x.count?(x.firstOk?'Doğru':'Yanlış'):'-')+'</td></tr><tr><th>Deneme sayısı</th><td>'+x.count+'</td></tr><tr><th>Tüm denemeler</th><td>'+(x.all.length?x.all.map(esc).join('<br>'):'-')+'</td></tr><tr><th>En iyi cevap</th><td>'+esc(x.correct)+'</td></tr><tr><th>Kavram</th><td>'+esc(x.t.concepts.join(", "))+'</td></tr></table><p class="exp">'+esc(x.t.fb)+'</p></div>';
   });
   h+='<h3>Kendi çözümün</h3><div class="box">'+(S.free[c.id]&&S.free[c.id].trim()?esc(S.free[c.id].trim()):'(Yazılmadı)')+'</div>';
  });
- h+='<h2>Kavram özeti</h2><p>Bu vakalarda kullandığın kitap fikirleri:</p><ul>'+R.used.map(function(k){return '<li><b>'+esc(k)+':</b> '+esc(CONCEPTS[k])+'</li>';}).join("")+'</ul>';
- h+='<p class="sub" style="margin-top:24px">Moka ve FitLine öğretim amacıyla kurgulanmış şirketlerdir. Kitaptaki etkiler olası eğilimlerdir; her insanda ve her koşulda aynı sonucu vermez.</p></body></html>';
+ h+='<h2>Kavram özeti</h2><p>Bu vakada kullandığın kitap fikirleri:</p><ul>'+R.used.map(function(k){return '<li><b>'+esc(k)+':</b> '+esc(CONCEPTS[k])+'</li>';}).join("")+'</ul>';
+ h+='<p class="sub" style="margin-top:24px">Moka öğretim amacıyla kurgulanmış bir şirkettir. Kitaptaki etkiler olası eğilimlerdir; her insanda ve her koşulda aynı sonucu vermez.</p></body></html>';
  return h;
 }
 function doDownload(){
@@ -393,24 +338,25 @@ function buildPayload(who){
  var R=report();
  var d={_subject:"Illusion of Choice vaka cevapları - "+who.name,_template:"table",_captcha:"false","Öğrenci":who.name,"Öğrenci e-postası":who.email||"-","Gönderim zamanı":nowTR(),"İlk denemede doğru":R.first+" / "+R.total};
  if(who.email)d._replyto=who.email;
- R.perCase.forEach(function(p,i){d["Vaka "+(i+1)+" ("+p.c.short+")"]=p.first+" / "+p.total+" ilk denemede doğru, toplam "+p.attempts+" deneme";});
+ d["Toplam deneme sayısı"]=String(R.attempts);
  d["Tekrar edilecek kavramlar"]=R.revisit.length?R.revisit.join(", "):"Yok";
  R.rows.forEach(function(x){
-  var key=(x.t.caseIdx===0?"Moka":"FitLine")+" "+x.t.local+" ("+x.t.concepts.join(", ")+")";
+  var key="Görev "+x.t.local+" ("+x.t.concepts.join(", ")+")";
   d[key]=x.count?("İlk cevap: "+x.firstText+" ["+(x.firstOk?"Doğru":"Yanlış")+"] | Deneme sayısı: "+x.count+" | Tüm denemeler: "+x.all.join(" → ")):"Cevaplanmadı";
  });
- CASES.forEach(function(c,i){d["Kendi çözümü - Vaka "+(i+1)+" ("+c.short+")"]=(S.free[c.id]||"").trim()||"(Yazılmadı)";});
+ CASES.forEach(function(c){d["Kendi çözümü ("+c.short+")"]=(S.free[c.id]||"").trim()||"(Yazılmadı)";});
  return d;
 }
 function doSend(){
+ if(S.sent||SENDING)return;
  var who=validate();if(!who)return;
- var data=buildPayload(who),btn=$("btnSend");
+ var data=buildPayload(who),rb=$("btnRetry");
  try{localStorage.setItem(KEY+"_last_submission",JSON.stringify(data));}catch(e){}
- btn.disabled=true;status("","Gönderiliyor…");
+ SENDING=true;if(rb)rb.classList.add("hidden");status("","Cevapların gönderiliyor…");
  fetch(FORM_URL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(data)})
- .then(function(res){return res.json().catch(function(){return {};}).then(function(j){if(res.ok&&String(j.success)!=="false"){status("ok","Teşekkürler "+who.name+"! Sonuçların Işıl Tabağ’a gönderildi.");}else throw new Error(j.message||res.status);});})
- .catch(function(){status("err","Gönderilemedi. İnternet bağlantını kontrol edip tekrar dene. Cevapların bu cihazda kayıtlı; istersen sonuçlarını indirebilirsin.");})
- .then(function(){btn.disabled=false;});
+ .then(function(res){return res.json().catch(function(){return {};}).then(function(j){if(!(res.ok&&String(j.success)!=="false"))throw new Error(j.message||res.status);});})
+ .then(function(){SENDING=false;S.sent=true;S.sentAt=new Date().toISOString();save();status("ok","Cevapların Işıl Tabağ’a gönderildi.");var b=$("btnRetry");if(b)b.classList.add("hidden");},
+       function(){SENDING=false;status("err","Cevapların gönderilemedi. İnternet bağlantını kontrol edip “Tekrar gönder” düğmesine bas. Cevapların bu cihazda kayıtlı.");var b=$("btnRetry");if(b)b.classList.remove("hidden");});
 }
 window.__IOCV={report:report,payload:buildPayload,KEY:KEY,STEPS:STEPS,ALLT:ALLT,cIdx:cIdx};
 render();
